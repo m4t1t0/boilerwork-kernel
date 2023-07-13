@@ -7,6 +7,9 @@ namespace Boilerwork\Support\ValueObjects\Address;
 use Boilerwork\Foundation\ValueObjects\ValueObject;
 use Boilerwork\Validation\Assert;
 
+/**
+ * @deprecated
+ */
 final class Street extends ValueObject
 {
     private function __construct(

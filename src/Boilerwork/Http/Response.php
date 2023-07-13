@@ -23,18 +23,19 @@ final class Response
 
     private function __construct(
         private mixed $data = '',
-        private int $status = 200,
+        private int   $status = 200,
         private array $headers = [],
-    ) {
+    )
+    {
     }
 
     /**
      * Create a configurable Response Object
      * which can be used later
      *
-     * @param  string|array  $data  The response data
-     * @param  int  $status  The HTTP status code
-     * @param  array  $headers  An array of HTTP headers
+     * @param string|array $data The response data
+     * @param int $status The HTTP status code
+     * @param array $headers An array of HTTP headers
      *
      * @return self
      */
@@ -46,7 +47,7 @@ final class Response
     /**
      * Add metadata to current metadata array
      *
-     * @param  array  $customMetadata  The custom metadata to add
+     * @param array $customMetadata The custom metadata to add
      *
      * @return self
      */
@@ -82,8 +83,8 @@ final class Response
     /**
      * Add header to current headers array
      *
-     * @param  string  $key  The header key
-     * @param  string  $value  The header value
+     * @param string $key The header key
+     * @param string $value The header value
      *
      * @return self
      */
@@ -119,7 +120,7 @@ final class Response
     /**
      * Set Http Status Code
      *
-     * @param  int  $status  The HTTP status code
+     * @param int $status The HTTP status code
      *
      * @return self
      */
@@ -149,15 +150,18 @@ final class Response
     /**
      * Create a ResponseInterface with JSON Format directly
      *
-     * @param  mixed  $data  The response data
-     * @param  int  $status  The HTTP status code
-     * @param  array  $headers  An array of HTTP headers
+     * @param mixed $data The response data
+     * @param int $status The HTTP status code
+     * @param array $headers An array of HTTP headers
      *
      * @return ResponseInterface
      */
     public static function json(mixed $data = '', int $status = 200, array $headers = []): ResponseInterface
     {
-        return (new self(data: $data, status: $status, headers: $headers))->toJson();
+        return (new self(data: $data, status: $status, headers: $headers))
+            ->addHeader(key: 'x-release-version', value: env('RELEASE_VERSION', '0.0'))
+            ->addHeader(key: 'x-tag-version', value: env('TAG_VERSION', '0.0'))
+            ->toJson();
     }
 
     /**
@@ -183,17 +187,18 @@ final class Response
     /**
      * Create a ResponseInterface with text Format directly
      *
-     * @param  string|StreamInterface  $data  The response data
-     * @param  int  $status  The HTTP status code
-     * @param  array  $headers  An array of HTTP headers
+     * @param string|StreamInterface $data The response data
+     * @param int $status The HTTP status code
+     * @param array $headers An array of HTTP headers
      *
      * @return ResponseInterface
      */
     public static function text(
         string|StreamInterface $data = '',
-        int $status = 200,
-        array $headers = [],
-    ): ResponseInterface {
+        int                    $status = 200,
+        array                  $headers = [],
+    ): ResponseInterface
+    {
         return (new self(data: $data, status: $status, headers: $headers))->toText();
     }
 
@@ -207,14 +212,15 @@ final class Response
         return (new EmptyResponse(
             status: $this->status,
             headers: $this->headers
-        ));
+        ))->withAddedHeader(name: 'x-release-version', value: env('RELEASE_VERSION', '0.0'))
+            ->withAddedHeader(name: 'x-tag-version', value: env('TAG_VERSION', '0.0'));
     }
 
     /**
      * Create a ResponseInterface with no content directly
      *
-     * @param  int  $status  The HTTP status code
-     * @param  array  $headers  An array of HTTP headers
+     * @param int $status The HTTP status code
+     * @param array $headers An array of HTTP headers
      *
      * @return ResponseInterface
      */
@@ -229,7 +235,7 @@ final class Response
 
         return [
             'metadata' => $metaData,
-            'data'     => $data,
+            'data' => $data,
         ];
     }
 
@@ -245,11 +251,16 @@ final class Response
 //        return ['pagination' => $pagingContainer->serialize()];
     }
 
-    public static function error(array $payload, int $status = 500): ResponseInterface
+    public static function error(\JsonSerializable|array $payload, int $status = 500): ResponseInterface
     {
-        return new JsonResponse(
+        if ($payload instanceof \JsonSerializable){
+            $payload = $payload->jsonSerialize();
+        }
+
+        return (new JsonResponse(
             data: $payload,
             status: $status,
-        );
+        ))->withAddedHeader(name: 'x-release-version', value: env('RELEASE_VERSION', '0.0'))
+            ->withAddedHeader(name: 'x-tag-version', value: env('TAG_VERSION', '0.0'));;
     }
 }

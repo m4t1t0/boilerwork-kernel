@@ -8,6 +8,9 @@ use Boilerwork\Foundation\ValueObjects\ValueObject;
 use Boilerwork\Support\ValueObjects\Identity;
 use Boilerwork\Validation\Assert;
 
+/**
+ * @deprecated
+ */
 final class Location extends ValueObject
 {
     private function __construct(

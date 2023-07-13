@@ -40,7 +40,15 @@ class Fee extends ValueObject
         return $this->type;
     }
 
+    /**
+     * @deprecated use toFloat()
+     */
     public function toPrimitive(): float
+    {
+        return $this->toFloat();
+    }
+
+    public function toFloat(): float
     {
         return $this->value;
     }

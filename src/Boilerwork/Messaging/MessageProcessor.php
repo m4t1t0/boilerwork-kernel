@@ -118,7 +118,7 @@ final class MessageProcessor
 //
 //                    $exception = new \Exception($errorMessage, 500, $th);
 
-                    $this->exceptionHandler->handle($exception);
+                    $this->exceptionHandler->handle($th);
                     continue;
                 }
             }

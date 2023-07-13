@@ -16,7 +16,7 @@ use TypeError;
 
 final class ExceptionHandler
 {
-    public function handle(Exception $exception, ServerRequestInterface $request = null): ResponseInterface
+    public function handle(Throwable $exception, ServerRequestInterface $request = null): ResponseInterface
     {
         error('ExceptionHandler: ' . $exception);
         echo sprintf('ExceptionHandler: %s %s', $exception, PHP_EOL);

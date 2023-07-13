@@ -90,7 +90,7 @@ abstract class Phone extends ValueObject
     private function getProtoNumber(): LibPhoneNumber
     {
         return (new LibPhoneNumber())
-            ->setNationalNumber($this->number->toPrimitive())
-            ->setCountryCode($this->countryCallingCode->toPrimitive());
+            ->setNationalNumber($this->number->toString())
+            ->setCountryCode($this->countryCallingCode->toString());
     }
 }

@@ -33,7 +33,15 @@ final class PhoneNumber extends ValueObject
             ->verifyNow();
     }
 
+    /**
+     * @deprecated use toString()
+     */
     public function toPrimitive(): string
+    {
+        return $this->toString();
+    }
+
+    public function toString(): string
     {
         return $this->number;
     }

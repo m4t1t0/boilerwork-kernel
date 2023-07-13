@@ -5,19 +5,25 @@ declare(strict_types=1);
 
 namespace Boilerwork\Support\Exceptions;
 
-abstract class CustomException extends \InvalidArgumentException
+abstract class CustomException extends \InvalidArgumentException implements \JsonSerializable
 {
-    public function __construct(string $code, string $message, int $httpStatus)
+    public function __construct(
+        protected $code,
+        protected $message,
+        int $httpStatus)
     {
-        parent::__construct(json_encode(
-            [
-                "error" =>
+        parent::__construct(json_encode($this->message), $httpStatus, null);
+    }
+
+    public function jsonSerialize(): mixed
+    {
+        return [
+            "error" =>
                 [
-                    "code" => $code,
-                    "message" => $message,
+                    "code" => $this->code,
+                    "message" => json_decode($this->message),
                     "errors" => []
                 ]
-            ]
-        ), $httpStatus, null);
+        ];
     }
 }

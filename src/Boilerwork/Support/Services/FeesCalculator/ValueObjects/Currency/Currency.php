@@ -51,9 +51,17 @@ final class Currency extends ValueObject
         return $this->symbol;
     }
 
+    /**
+     * @deprecated use toString()
+     */
     public function toPrimitive(): string
     {
-        return $this->iso4217()->toPrimitive();
+        return $this->iso4217()->toString();
+    }
+
+    public function toString(): string
+    {
+        return $this->iso4217()->toString();
     }
 
     public function equals(Currency $object): bool

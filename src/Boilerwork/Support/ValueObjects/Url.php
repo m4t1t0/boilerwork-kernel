@@ -60,6 +60,9 @@ abstract class Url extends ValueObject
         return parse_url($this->value, PHP_URL_FRAGMENT);
     }
 
+    /**
+     * @deprecated use toString()
+     */
     public function toPrimitive(): string
     {
         return $this->toString();

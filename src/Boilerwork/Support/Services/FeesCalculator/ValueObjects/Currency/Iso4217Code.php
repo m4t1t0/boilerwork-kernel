@@ -22,7 +22,15 @@ class Iso4217Code extends ValueObject
             ->verifyNow();
     }
 
+    /**
+     * @deprecated use toString()
+     */
     public function toPrimitive(): string
+    {
+        return $this->value;
+    }
+
+    public function toString(): string
     {
         return $this->value;
     }

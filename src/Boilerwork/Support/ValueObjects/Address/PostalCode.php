@@ -8,6 +8,9 @@ use Boilerwork\Foundation\ValueObjects\ValueObject;
 use Boilerwork\Support\ValueObjects\Country\Iso31661Alpha2Code;
 use Boilerwork\Validation\Assert;
 
+/**
+ * @deprecated
+ */
 final class PostalCode extends ValueObject
 {
     private function __construct(
@@ -35,7 +38,7 @@ final class PostalCode extends ValueObject
         return $this->value;
     }
 
-    private function isValid(Iso31661Alpha2Code $iso31661Alpha2Code, $value)
+    private function isValid(Iso31661Alpha2Code $iso31661Alpha2Code, $value): bool
     {
         foreach (static::$mappings as $item) {
             if ($iso31661Alpha2Code->toString() === $item['ISO']) {

@@ -42,6 +42,9 @@ abstract class Uuid extends ValueObject
         return new static($uuid);
     }
 
+    /**
+     * @deprecated use toString()
+     */
     public function toPrimitive(): string
     {
         return $this->toString();

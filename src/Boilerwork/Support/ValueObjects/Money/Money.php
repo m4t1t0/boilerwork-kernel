@@ -16,6 +16,9 @@ abstract class Money extends ValueObject
     ) {
     }
 
+    /**
+     * @deprecated use toString()
+     */
     public function toPrimitive(): string
     {
         return $this->toString();

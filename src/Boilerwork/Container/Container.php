@@ -6,6 +6,7 @@ declare(strict_types=1);
 namespace Boilerwork\Container;
 
 use Illuminate\Container\Container as IlluminateContainer;
+use Illuminate\Container\ContextualBindingBuilder;
 use Psr\Container\ContainerInterface;
 
 /**
@@ -60,7 +61,7 @@ final class Container implements ContainerInterface
         $this->container->instance($abstract, $instance);
     }
 
-    public function when(string $concrete)
+    public function when(string $concrete): ContextualBindingBuilder
     {
         return $this->container->when($concrete);
     }

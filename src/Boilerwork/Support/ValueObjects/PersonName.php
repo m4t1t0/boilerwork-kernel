@@ -52,11 +52,7 @@ abstract class PersonName extends ValueObject
     }
 
     /**
-     * Name string is returned in the following format and order:
-     * (Given names + Inherited names)
-     * firstName middleName lastName lastName2
-     *
-     * @return string
+     * @deprecated use toString()
      */
     public function toPrimitive(): string
     {

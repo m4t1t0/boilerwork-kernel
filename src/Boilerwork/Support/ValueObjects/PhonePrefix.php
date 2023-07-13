@@ -70,9 +70,15 @@ final class PhonePrefix extends ValueObject
         return $phoneUtil->getRegionCodeForCountryCode($this->value);
     }
 
-
-
+    /**
+     * @deprecated use toString()
+     */
     public function toPrimitive(): string|null
+    {
+        return $this->toString();
+    }
+
+    public function toString(): string|null
     {
         return $this->value;
     }

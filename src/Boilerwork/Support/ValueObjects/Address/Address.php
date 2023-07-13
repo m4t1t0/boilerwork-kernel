@@ -9,6 +9,9 @@ use Boilerwork\Support\ValueObjects\Country\Country;
 use Boilerwork\Support\ValueObjects\Country\Iso31661Alpha2Code;
 use Boilerwork\Support\ValueObjects\Geo\Coordinates;
 
+/**
+ * @deprecated
+ */
 final class Address extends ValueObject
 {
     private function __construct(

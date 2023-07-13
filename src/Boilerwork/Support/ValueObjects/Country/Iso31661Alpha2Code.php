@@ -292,6 +292,9 @@ class Iso31661Alpha2Code extends ValueObject
         return $this->toPrimitive() === $object->toPrimitive() && $object instanceof self;
     }
 
+    /**
+     * @deprecated use toString()
+     */
     public function toPrimitive(): string
     {
         return $this->toString();

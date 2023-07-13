@@ -57,6 +57,9 @@ final class Country extends ValueObject
         return $this->englishName;
     }
 
+    /**
+     * @deprecated use toString()
+     */
     public function toPrimitive(): string
     {
         return $this->toString();
@@ -64,13 +67,13 @@ final class Country extends ValueObject
 
     public function toString(): string
     {
-        return $this->iso31661Alpha2Code()->toPrimitive();
+        return $this->iso31661Alpha2Code()->toString();
     }
 
     public function equals(ValueObject $object): bool
     {
-        return $this->iso31661Alpha2Code->toPrimitive() === $object->iso31661Alpha2Code->toPrimitive()
-            && $this->iso31661Alpha3Code->toPrimitive() === $object->iso31661Alpha3Code->toPrimitive()
+        return $this->iso31661Alpha2Code->toString() === $object->iso31661Alpha2Code->toString()
+            && $this->iso31661Alpha3Code->toString() === $object->iso31661Alpha3Code->toString()
             && $this->englishName === $object->englishName
             && $object instanceof self;
     }
@@ -78,8 +81,8 @@ final class Country extends ValueObject
     public function toArray(): array
     {
         return [
-            'iso31661Alpha2Code' => $this->iso31661Alpha2Code()->toPrimitive(),
-            'iso31661Alpha3Code' => $this->iso31661Alpha3Code()->toPrimitive(),
+            'iso31661Alpha2Code' => $this->iso31661Alpha2Code()->toString(),
+            'iso31661Alpha3Code' => $this->iso31661Alpha3Code()->toString(),
             'englishName' => $this->englishName(),
         ];
     }

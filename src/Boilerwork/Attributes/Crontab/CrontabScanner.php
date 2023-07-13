@@ -202,8 +202,6 @@ final class CrontabScanner extends AbstractScanner
 
         $now = new \DateTime();
 
-        var_dump($now->format('H:i:s'));
-
         return $nextMidnight->getTimestamp() - $now->getTimestamp();
     }
 }
